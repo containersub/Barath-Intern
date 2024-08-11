@@ -1,0 +1,156 @@
+<html>
+    <head>
+        <title>wether</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    </head>   
+    <body>
+        <div class="wrapper">
+           <div class=" shape shape-1"></div>
+            <div class=" shape shape-2"></div>
+            <div class=" shape shape-3"></div>
+            <div class=" shape shape-4"></div>
+            <div class=" shape shape-5"></div>
+                <div class="maincard">
+                    <div class="card">
+                        <div class="search">
+                            <input type="text" placeholder="Enter city name" id="location-input" class="sub-search">
+                            <button id="btn" class="btn">Get</button>
+                        </div>
+                        <div class="wether">
+                            <img src="sun.png.png" class="weather-icon" id="icon">
+                            <h2 class="temp" id="temp-value">30°c</h2>
+                            <h4 class="city-1" id="location-1">Clear Sky</h4>
+                        </div>
+                        <div class="details">
+                            <div class="cool">
+                                <img src="humidity.png.png" >
+                                <div> 
+                                    <p class="humidity">50%</p>
+                                    <p>Humidity</p>
+                                </div>      
+                            </div>   
+                            <div class="cool">
+                                <img src="wind.png.png" >
+                                <div>
+                                    <p class="wind">50 km/h</p>
+                                    <p>Wind Speed</p>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>  
+                    
+                    <div class="container">
+                        <div class="subcontainer-1">
+                            <h2>Today</h2>
+                            <h4 class="city" id="location">New York</h4>
+                            <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.2528000654!2d-74.14448744699546!3d40.69763123333061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1712641361875!5m2!1sen!2sin" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">Location</a>
+                        </div>
+                        <div class="subcontainer">
+                            <div class="subcont-1">
+                                <h3  class="class-1">Pressure</h3>
+                                <h5  class="class-1"id="pre-mesu">1000 mb</h5>
+                               
+                            </div>
+                            <div class="subcont-1">
+                                <h3 class="class-1" id="UV Index">UV Index</h3>
+                                <h5 class="class-1" id="uv-mesu">3</h5>
+                                <h5 class="class-1" id="">Modaerate</h5> 
+                            </div>
+                            <div class="subcont-1">
+                                <h3 class="class-1" >Feals Like</h3>
+                                <h5 class="class-1" id="feel-mesu">31°c</h5>
+                                <h5 class="class-1" >East</h5> 
+                            </div>
+                        </div>
+                        <div class="subcontainer">
+                            <div class="subcont-1">
+                                <h3 class="class-1" >Temparature</h3>
+                                <h5 class="class-1" id="temp-1">31°c</h5>
+                                <h5 class="class-1" id="temp-2">31°c</h5>
+                            </div>
+                            <div class="subcont-1">
+                                <h3 class="class-1" id="sun">Wind</h3>
+                                <h5 class="class-1" id="sun-1">Speed</h5>
+                                <h5 class="class-1" id="sun-2"></p>Deg</h5> 
+                            </div>
+                            <div class="subcont-1">
+                                <h3 class="class-1" id="moon">Moon</h3>
+                                <h5 class="class-1" id="moon-1">Rise</h5>
+                                <h5 class="class-1"  id="moon-2">Set</h5> 
+                            </div>
+                        </div> 
+                        <div class="subcontainer">
+                            <div class="subcont-1">
+                                <h6>Wind</h6>
+                                <h3>6 km/h</h3>
+                                <p>East</p>
+                            </div>
+                            <div class="subcont-1">
+                                <h6>Wind</h6>
+                                <h3>6 km/h</h3>
+                                <p>East</p> 
+                            </div>
+                            <div class="subcont-1">
+                                <h6>Wind</h6>
+                                <h3>6 km/h</h3>
+                                <p>East</p> 
+                            </div>
+                        </div>           
+                    </div>
+                </div>   
+        </div>      
+        <script>
+            const apikey = "f679c221101a7509afba9743070335c6";
+            const apiurl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+            const searchbox = document.querySelector(".sub-search");
+            const searchBtn = document.querySelector(".btn");
+            const weatherIcon = document.querySelector(".wether-icon");
+
+            async function checkWeather(city){
+                const response = await fetch(apiurl + city + `&appid=${apikey}`);
+                const data = await response.json();
+            
+                console.log(data);
+            
+                document.querySelector(".city").innerHTML = data.name;
+                document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
+                document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+                document.getElementById("feel-mesu").innerHTML = data.main.feels_like+ "°C ";
+                document.getElementById("pre-mesu").innerHTML = data.main.pressure+ " mb";
+                document.getElementById("temp-1").innerHTML = data.main.temp_max+ "°C ";
+                document.getElementById("temp-2").innerHTML = data.main.temp_min+ "°C";
+                document.getElementById("sun-2").innerHTML = data.wind.deg+ "°";
+                document.getElementById("sun-1").innerHTML = data.wind.speed+ "°";
+                document.getElementById("location-1").innerHTML = data.weather[0].description+ "";
+                
+                
+
+            
+                if(data.Weather[0].main =="Clouds"){
+                    wetherIcon.src="e:\project\wether project\images\clear.png";
+               }
+               else  if(data.Weather[0].main =="Clear"){
+                   wetherIcon.src="e:\project\wether project\images\clouds.png";
+               }
+               else  if(data.Weather[0].main =="rain"){
+                   wetherIcon.src="e:\project\wether project\images\rain.png";
+               }
+               else  if(data.Weather[0].main =="drizzle"){
+                   wetherIcon.src="e:\project\wether project\images\drizzle.png";
+               }
+               else  if(data.Weather[0].main =="mist"){
+                   wetherIcon.src="e:\project\wether project\images\mist.pngimages/mist.png";
+               }
+            
+                document.querySelector(".wether").style.display = "block";
+            }
+
+            searchBtn.addEventListener("click", () => {
+                checkWeather(searchbox.value);
+            });
+            
+        </script>
+    </body>
